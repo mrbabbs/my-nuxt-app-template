@@ -1,6 +1,12 @@
 <template functional>
   <li>
-    <input id="" type="checkbox" name="" :checked="props.completed" />
+    <input
+      id="props.id"
+      type="checkbox"
+      name=""
+      :checked="props.completed"
+      @click="listeners['toggle']()"
+    />
     <span>
       <slot />
     </span>

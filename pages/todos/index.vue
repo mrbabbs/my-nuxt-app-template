@@ -3,10 +3,12 @@
     <ul>
       <Todo
         v-for="todo in todos"
+        :id="todo.id"
         :key="todo.id"
         :completed="todo.completed"
         :completed-date="todo.completedAt"
         :created-date="todo.createdAt"
+        @toggle="toggleTodo(todo.id)"
       >
         {{ todo.text }}
       </Todo>
@@ -15,18 +17,23 @@
 </template>
 
 <script lang="ts">
+import { mapGetters, mapActions } from 'vuex'
 import Vue from 'vue'
 
 export default Vue.extend({
-  async asyncData({ $axios }: any) {
-    return {
-      todos: await $axios.$get('http://localhost:3000/api/v1/todos'),
-    }
+  async fetch() {
+    await this.initTodos()
   },
-  data() {
-    return {
-      todos: [],
-    }
+  computed: {
+    ...mapGetters({
+      todos: 'todos/todos',
+    }),
+  },
+  methods: {
+    ...mapActions({
+      toggleTodo: 'todos/toggleTodo',
+      initTodos: 'todos/initTodos',
+    }),
   },
 })
 </script>

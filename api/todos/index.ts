@@ -1,6 +1,6 @@
 import express from 'express'
 
-import { getTodos } from './controllers'
+import { getTodos, updateTodo } from './controllers'
 
 const todos = express.Router()
 
@@ -14,9 +14,7 @@ todos.post('/todos', (_, res) => {
   res.json([{}])
 })
 
-todos.put('/todos/:id', (_, res) => {
-  res.json([{}])
-})
+todos.put('/todos/:id', updateTodo)
 
 todos.delete('/todos/:id', (_, res) => {
   res.json([{}])
